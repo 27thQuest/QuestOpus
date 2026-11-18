@@ -1,7 +1,7 @@
 
 {
   "name": "quest-opus-desktop",
-  "version": "1.0.4D",
+  "version": "1.0.5",
   "description": "Quest Opus – desktop time tracking and project management application",
   "main": "main.js",
   "author": {
@@ -15,7 +15,7 @@
   "license": "MIT",
   "build": {
     "appId": "inc.quest.quest-opus-project-manager",
-    "productName": "Quest Opus - Desktop Version 1.0.4D",
+    "productName": "Quest Opus - Desktop Version 1.0.5D",
     "copyright": "Copyright © 2026 Quest, inc.",
     "directories": {
       "output": "dist"
