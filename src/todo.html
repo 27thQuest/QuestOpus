@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+
+  <title>Quest Opus - Todo</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       DESKTOP NAVIGATION
+       ========================= -->
+
+  <nav class="nav">
+    <div class="app-brand">
+      <img src="../public/icon.ico" alt="Quest Opus">
+    </div>
+
+    <span class="nav__mark">
+      Quest Opus, Weekly Planner: Make Every Week Your Magnum Opus
+    </span>
+
+    <div class="nav__links">
+
+      <a class="nav__link" href="index.html">
+        Timer
+      </a>
+
+      <a class="nav__link" href="plan.html">
+        Plan
+      </a>
+
+
+      <a class="nav__link" href="calendar.html">
+        Calendar
+      </a>
+
+      <a class="nav__link" href="analytics.html">
+        Analytics
+      </a>
+
+      <a class="nav__link is-current" href="todo.html">
+        Todo
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       MAIN CONTENT
+       ========================= -->
+
+  <main class="page">
+
+    <section class="todo-page">
+
+      <div class="todo-page__head subjects__head">
+
+        <h2 class="subjects__title">
+          Tasks
+        </h2>
+
+      </div>
+
+
+      <div class="todo-add-row">
+
+        <input class="todo-add-input" id="todo-input" type="text" placeholder="Add a task…" maxlength="200"
+          autocomplete="off" />
+
+        <button class="btn btn--primary" id="todo-add-btn" type="button">
+          Add
+        </button>
+
+      </div>
+
+
+      <ul class="todo-list" id="todo-list"></ul>
+
+
+      <p class="empty" id="todo-empty">
+        No tasks yet.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       NEW TASK DIALOG
+       ========================= -->
+
+  <dialog class="dialog" id="task-dialog">
+
+    <h3 class="dialog__title">
+      New task
+    </h3>
+
+
+    <label class="dialog__label" for="task-dialog-text">
+      Task
+    </label>
+
+    <input class="dialog__input" id="task-dialog-text" type="text" maxlength="200" autocomplete="off" />
+
+
+    <label class="dialog__label" for="task-dialog-project" style="margin-top:1.1rem;display:block">
+      Related project
+    </label>
+    <select class="dialog__input" id="task-dialog-project">
+      <option value="">
+        None
+      </option>
+    </select>
+
+    <label class="dialog__label" for="task-dialog-deadline" style="margin-top:1.1rem;display:block">
+      Deadline (optional)
+    </label>
+
+    <div class="deadline-picker" id="deadline-picker">
+
+      <input class="dialog__input deadline-picker__input" id="task-dialog-deadline" type="text" placeholder="mm/dd/yyyy"
+        autocomplete="off" readonly aria-label="Task deadline" aria-haspopup="dialog" aria-expanded="false" />
+
+      <div class="deadline-calendar" id="deadline-calendar" role="dialog" aria-label="Choose a deadline" hidden></div>
+
+    </div>
+
+
+    <div class="dialog__actions">
+
+      <button class="btn btn--ghost" id="task-dialog-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="task-dialog-save" type="button">
+        Add
+      </button>
+
+    </div>
+
+  </dialog>
+
+
+  <!-- =========================
+       SCRIPTS
+       ========================= -->
+
+  <script src="todo.js"></script>
+
+</body>
+
+</html>

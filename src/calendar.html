@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+
+    <title>Quest Opus - Calendar</title>
+
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- =========================
+       DESKTOP NAVIGATION
+       ========================= -->
+
+    <nav class="nav">
+
+        <div class="app-brand">
+            <img src="../public/icon.ico" alt="Quest Opus">
+        </div>
+
+        <span class="nav__mark">
+            Quest Opus, Weekly Planner: Make Every Week Your Magnum Opus
+        </span>
+
+        <div class="nav__links">
+
+            <a class="nav__link" href="index.html">
+                Timer
+            </a>
+
+            <a class="nav__link" href="plan.html">
+                Plan
+            </a>
+
+            <a class="nav__link is-current" href="calendar.html">
+                Calendar
+            </a>
+
+            <a class="nav__link" href="analytics.html">
+                Analytics
+            </a>
+
+            <a class="nav__link" href="todo.html">
+                Todo
+            </a>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =========================
+       MAIN CONTENT
+       ========================= -->
+
+    <main class="page">
+
+        <!-- Page heading + week nav -->
+
+        <section class="cal-header">
+
+            <div class="cal-header__left">
+
+                <h1 class="cal-header__title">
+                    Calendar
+                </h1>
+
+                <p class="cal-header__range" id="cal-range">
+                    <!-- filled by JS -->
+                </p>
+
+            </div>
+
+            <div class="cal-header__nav">
+
+                <div class="cal-view-toggle">
+                    <button class="btn btn--ghost cal-nav-btn cal-view-btn is-active" id="cal-view-weekly"
+                        type="button">
+                        Weekly
+                    </button>
+
+                    <button class="btn btn--ghost cal-nav-btn cal-view-btn" id="cal-view-monthly" type="button">
+                        Monthly
+                    </button>
+                </div>
+
+                <button class="btn btn--ghost cal-nav-btn" id="cal-prev" type="button" aria-label="Previous">
+                    ←
+                </button>
+
+                <button class="btn btn--ghost cal-nav-btn" id="cal-today" type="button">
+                    Today
+                </button>
+
+                <button class="btn btn--ghost cal-nav-btn" id="cal-next" type="button" aria-label="Next">
+                    →
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- Calendar grid -->
+
+        <section class="cal-section">
+
+            <div class="cal-grid-wrap" id="cal-grid-wrap">
+
+                <!-- Day header row -->
+                <div class="cal-grid" id="cal-grid">
+                    <!-- Filled by calendar.js -->
+                </div>
+
+            </div>
+
+            <p class="empty" id="cal-empty" hidden>
+                No projects yet. Add one on the Timer page to start tracking.
+            </p>
+
+        </section>
+
+
+        <!-- =========================
+           SELECTED DAY
+           ========================= -->
+
+        <section class="cal-day-section" id="cal-day-section">
+
+            <div class="cal-day-header">
+
+                <div>
+                    <h2 class="cal-day-title" id="cal-day-title">
+                        Select a day
+                    </h2>
+
+                    <p class="cal-day-sub" id="cal-day-sub">
+                        Click a day on the calendar to view its diary and todos.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <!-- Diary -->
+            <div class="cal-day-content">
+
+
+
+
+                <!-- Todos -->
+
+                <div class="cal-day-block">
+
+                    <h3 class="cal-day-block__title">
+                        Todos
+                    </h3>
+
+                    <div class="cal-day-todos" id="cal-day-todos">
+                        <!-- Filled by calendar.js -->
+                    </div>
+
+                </div>
+
+                <div class="cal-day-block">
+
+                    <h3 class="cal-day-block__title">
+                        Diary
+                    </h3>
+
+                    <div class="cal-diary" id="cal-diary">
+                        <textarea class="cal-diary__input" id="cal-diary-input" placeholder="Write about your day..."
+                            spellcheck="true"></textarea>
+
+                        <div class="cal-diary__status" id="cal-diary-status"></div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Daily totals footer -->
+
+        <section class="cal-totals-section">
+
+            <h2 class="cal-totals-title">
+                Daily totals
+            </h2>
+
+            <div class="cal-totals-row" id="cal-totals-row">
+                <!-- Filled by calendar.js -->
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+       SCRIPTS
+       ========================= -->
+
+    <script src="calendar.js"></script>
+
+</body>
+
+</html>

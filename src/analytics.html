@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+
+  <title>Quest Opus - Analytics</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       DESKTOP NAVIGATION
+       ========================= -->
+
+  <nav class="nav">
+
+    <div class="app-brand">
+      <img src="../public/icon.ico" alt="Quest Opus">
+    </div>
+
+    <span class="nav__mark">
+      Quest Opus, Weekly Planner: Make Every Week Your Magnum Opus
+    </span>
+
+    <div class="nav__links">
+
+      <a class="nav__link" href="index.html">
+        Timer
+      </a>
+
+      <a class="nav__link" href="plan.html">
+        Plan
+      </a>
+
+      <a class="nav__link" href="calendar.html">Calendar</a>
+
+
+      <a class="nav__link is-current" href="analytics.html">
+        Analytics
+      </a>
+
+      <a class="nav__link" href="todo.html">
+        Todo
+      </a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       MAIN CONTENT
+       ========================= -->
+
+  <main class="page">
+
+    <section class="panel">
+
+      <div class="panel__head">
+
+        <h2 class="panel__title">
+          Hours per project
+        </h2>
+
+        <p class="panel__note" id="week-range"></p>
+
+        <p class="panel__key">
+          Last week: left &nbsp;|&nbsp; This week: right
+        </p>
+
+      </div>
+
+
+      <div class="chart-wrap">
+        <canvas id="chart"></canvas>
+      </div>
+
+
+      <p class="empty" id="chart-error" hidden>
+        Chart.js didn't load.
+      </p>
+
+    </section>
+
+
+    <section class="totals" id="totals"></section>
+
+  </main>
+
+
+  <!-- =========================
+       SCRIPTS
+       ========================= -->
+
+  <script src="./vendor/chart.umd.js"></script>
+  <script src="analytics.js"></script>
+
+</body>
+
+</html>

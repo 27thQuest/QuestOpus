@@ -1,0 +1,452 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';">
+
+  <title>Quest Opus - Desktop Version 1.0.4D</title>
+
+  <link rel="stylesheet" href="styles.css" />
+
+  <!-- Streak widget styles (scoped; self-contained so it doesn't
+       depend on styles.css definitions) -->
+  <style>
+    .streak-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid #3a3a3a;
+      background: #1c1c1c;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: #888;
+      user-select: none;
+      transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.15s ease;
+    }
+
+    .streak-badge__flame {
+      font-size: 1.05rem;
+      filter: grayscale(1) opacity(0.55);
+      transition: filter 0.25s ease, transform 0.25s ease;
+    }
+
+    /* Streak exists and today's task is already done: full, warm flame */
+    .streak-badge.is-active {
+      background: linear-gradient(135deg, #3a1d05, #2a1402);
+      border-color: #ff8c1a55;
+      color: #ffb454;
+    }
+
+    .streak-badge.is-active .streak-badge__flame {
+      filter: none;
+      animation: streak-flame-pulse 1.8s ease-in-out infinite;
+    }
+
+    /* Streak exists but today isn't done yet: amber "at risk" warning */
+    .streak-badge.is-at-risk {
+      background: #2a1e05;
+      border-color: #b8860b88;
+      color: #e0b84c;
+    }
+
+    .streak-badge.is-at-risk .streak-badge__flame {
+      filter: none;
+      opacity: 0.85;
+      animation: streak-flame-flicker 1.2s ease-in-out infinite;
+    }
+
+    .streak-badge.is-zero {
+      color: #777;
+    }
+
+    @keyframes streak-flame-pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.18);
+      }
+    }
+
+    @keyframes streak-flame-flicker {
+
+      0%,
+      100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.85;
+      }
+
+      50% {
+        transform: scale(1.08) rotate(-4deg);
+        opacity: 1;
+      }
+    }
+
+    .streak-banner {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.6rem;
+      padding: 0.5rem 0.85rem;
+      border-radius: 10px;
+      background: #2a1e05;
+      border: 1px solid #b8860b55;
+      color: #e0b84c;
+      font-size: 0.85rem;
+    }
+
+    .streak-banner.is-visible {
+      display: inline-flex;
+    }
+
+    /* Panel context tweaks */
+    .todo-panel__head {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .todo-panel__head .streak-badge {
+      font-size: 0.78rem;
+      padding: 0.15rem 0.5rem;
+    }
+
+    .todo-panel__head .streak-badge__flame {
+      font-size: 0.9rem;
+    }
+
+    .todo-panel .streak-banner {
+      margin: 0.35rem 0 0.5rem;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Task deadline badges */
+    .todo-deadline {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      margin: 0.2rem 0.25rem 0 0;
+      padding: 0.12rem 0.42rem;
+      border: 1px solid #66552b;
+      border-radius: 999px;
+      background: #2a2415;
+      color: #e0c477;
+      font-size: 0.68rem;
+      line-height: 1.4;
+      white-space: nowrap;
+    }
+
+    /* Due today */
+    .todo-deadline.is-due-today {
+      border-color: #a87925;
+      background: #382a12;
+      color: #ffd27a;
+    }
+
+    /* Overdue */
+    .todo-deadline.is-overdue {
+      border-color: #a54858;
+      background: #351b20;
+      color: #f0a0ad;
+    }
+
+    /* Slightly smaller badges in the compact panel */
+    .todo-panel .todo-deadline {
+      font-size: 0.65rem;
+      margin-top: 0.25rem;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- =========================
+       DESKTOP NAVIGATION
+       ========================= -->
+
+  <nav class="nav">
+    <div class="app-brand">
+      <img src="../public/icon.ico" alt="Quest Opus">
+    </div>
+
+    <span class="nav__mark">
+      Quest Opus, Weekly Planner: Make Every Week Your Magnum Opus
+    </span>
+    <div class="nav__links">
+      <a class="nav__link is-current" href="index.html">
+        Timer
+      </a>
+      <a class="nav__link" href="plan.html">
+        Plan
+      </a>
+      <a class="nav__link" href="calendar.html">Calendar</a>
+      <a class="nav__link" href="analytics.html">Analytics</a>
+      <a class="nav__link" href="todo.html">Todo</a>
+    </div>
+  </nav>
+
+
+  <!-- =========================
+       MAIN PAGE
+       ========================= -->
+
+  <main class="page">
+
+    <!-- Timer + Task Panel -->
+
+    <div class="timer-row">
+
+      <!-- Tasks -->
+
+      <aside class="todo-panel">
+        <div class="todo-panel__head">
+          <span class="todo-panel__title">Tasks</span>
+          <div class="streak-badge is-zero" id="streak-badge" title="Complete a task to start a streak">
+            <span class="streak-badge__flame" id="streak-flame">🔥</span>
+            <span class="streak-badge__count" id="streak-count">0</span>
+          </div>
+          <a class="todo-panel__link" href="todo.html">See all</a>
+        </div>
+        <div class="streak-banner" id="streak-banner">
+          <span>🔥</span>
+          <span id="streak-banner-text">Complete a task today to keep your streak alive!</span>
+        </div>
+        <div class="todo-add-row todo-add-row--compact" style="gap: 0.4rem;">
+          <input class="todo-add-input todo-add-input--compact" id="panel-todo-input" type="text"
+            placeholder="Add a task…" maxlength="200" autocomplete="off" />
+          <button class="btn btn--primary" id="panel-todo-add-btn"
+            style="padding: 0.2rem 0.6rem; font-size: 0.8125rem;">Add</button>
+        </div>
+        <ul class="todo-list todo-list--compact" id="panel-todo-list"></ul>
+        <p class="empty todo-empty--compact" id="panel-todo-empty">No tasks yet.</p>
+      </aside>
+
+      <section class="clock" aria-live="off">
+        <p class="clock__subject" id="clock-subject">Pick a project to begin</p>
+        <p class="clock__time" id="clock-time">00:00:00</p>
+        <div class="controls">
+          <button class="btn btn--primary" id="btn-primary" disabled>Start</button>
+          <button class="btn" id="btn-stop" disabled>Stop</button>
+        </div>
+      </section>
+    </div>
+
+
+    <!-- =========================
+         PROJECTS / SUBJECTS
+         ========================= -->
+
+    <section class="subjects">
+
+      <div class="subjects__head">
+
+        <h2 class="subjects__title">
+          Today
+        </h2>
+
+        <button class="btn btn--ghost" id="btn-add" type="button">
+          Add project
+        </button>
+
+      </div>
+
+
+      <div class="grid" id="subject-grid"></div>
+
+
+      <p class="empty" id="empty" hidden>
+        No projects yet. Add one to start tracking.
+      </p>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       TOAST
+       ========================= -->
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+
+  <!-- =================
+   Remove project confirmation
+-->
+  <dialog class="dialog" id="delete-dialog">
+    <h3 class="dialog__title">Remove project</h3>
+
+    <p class="dialog__message" id="delete-message">
+      Are you sure you want to remove this project?
+    </p>
+
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" id="delete-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="delete-confirm" type="button">
+        Remove
+      </button>
+    </div>
+  </dialog>
+
+
+  <!-- =========================
+       RENAME SUBJECT DIALOG
+       ========================= -->
+
+  <dialog class="dialog" id="rename-dialog">
+
+    <h3 class="dialog__title">
+      Edit project
+    </h3>
+
+
+    <label class="dialog__label" for="rename-input">
+      Name
+    </label>
+
+    <input class="dialog__input" id="rename-input" type="text" maxlength="60" autocomplete="off" />
+
+
+    <p class="dialog__error" id="rename-error" hidden>
+      That name is already in use.
+    </p>
+
+
+    <label class="dialog__label" style="margin-top:1.1rem;display:block">
+      Color
+    </label>
+
+    <div class="color-swatches" id="color-swatches"></div>
+
+
+    <div class="dialog__actions">
+
+      <button class="btn btn--ghost" id="rename-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="rename-save" type="button">
+        Save
+      </button>
+
+    </div>
+
+  </dialog>
+
+
+  <!-- =========================
+       ADD SUBJECT DIALOG
+       ========================= -->
+
+  <dialog class="dialog" id="add-dialog">
+
+    <h3 class="dialog__title">
+      New project
+    </h3>
+
+
+    <input class="dialog__input" id="subject-name" type="text" placeholder="Organic Chemistry" maxlength="60"
+      autocomplete="off" />
+
+
+    <p class="dialog__error" id="dialog-error" hidden>
+      Name already exists.
+    </p>
+
+
+    <div class="dialog__actions">
+
+      <button class="btn btn--ghost" id="dialog-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="dialog-save" type="button">
+        Add
+      </button>
+
+    </div>
+
+  </dialog>
+
+
+  <!-- =========================
+       NEW TASK DIALOG
+       ========================= -->
+
+  <dialog class="dialog" id="task-dialog">
+
+    <h3 class="dialog__title">
+      New task
+    </h3>
+
+
+    <label class="dialog__label" for="task-dialog-text">
+      Task
+    </label>
+
+    <input class="dialog__input" id="task-dialog-text" type="text" maxlength="200" autocomplete="off" />
+
+
+    <label class="dialog__label" for="task-dialog-project" style="margin-top:1.1rem;display:block">
+      Related project
+    </label>
+
+    <select class="dialog__input" id="task-dialog-project">
+      <option value="">
+        None
+      </option>
+    </select>
+
+    <label class="dialog__label" for="task-dialog-deadline" style="margin-top:1.1rem;display:block">
+      Deadline (optional)
+    </label>
+
+    <div class="deadline-picker" id="deadline-picker">
+      <input class="dialog__input deadline-picker__input" id="task-dialog-deadline" type="text" placeholder="mm/dd/yyyy"
+        autocomplete="off" readonly aria-label="Task deadline" aria-haspopup="dialog" aria-expanded="false" />
+
+      <div class="deadline-calendar" id="deadline-calendar" role="dialog" aria-label="Choose a deadline" hidden></div>
+    </div>
+
+
+    <div class="dialog__actions">
+
+      <button class="btn btn--ghost" id="task-dialog-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="task-dialog-save" type="button">
+        Add
+      </button>
+
+    </div>
+
+  </dialog>
+
+
+  <!-- =========================
+       SCRIPTS
+       ========================= -->
+
+  <script src="renderer.js"></script>
+  <script src="todo.js"></script>
+
+
+</body>
+
+</html>

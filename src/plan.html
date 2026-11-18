@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'" />
+
+  <title>Quest Opus - Plan</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- =========================
+       DESKTOP NAVIGATION
+       ========================= -->
+
+  <nav class="nav">
+
+    <div class="app-brand">
+      <img src="../public/icon.ico" alt="Quest Opus">
+    </div>
+
+    <span class="nav__mark">
+      Quest Opus, Weekly Planner: Make Every Week Your Magnum Opus
+    </span>
+
+    <div class="nav__links">
+
+      <a class="nav__link" href="index.html">Timer</a>
+
+      <a class="nav__link is-current" href="plan.html">Plan</a>
+
+      <a class="nav__link" href="calendar.html">Calendar</a>
+
+      <a class="nav__link" href="analytics.html">Analytics</a>
+
+      <a class="nav__link" href="todo.html">Todo</a>
+
+    </div>
+
+  </nav>
+
+
+  <!-- =========================
+       MAIN PAGE
+       ========================= -->
+
+  <main class="page">
+
+    <section class="page-heading">
+      <h1>Plan</h1>
+      <p>Design how you want to spend your week.</p>
+    </section>
+
+
+    <!-- =========================
+         TWO-BAR OVERVIEW
+         ========================= -->
+
+    <div class="week-bars">
+
+      <!-- ---- Planned Week ---- -->
+      <section class="week-bar-card">
+
+        <div class="week-bar-card__head">
+
+          <div>
+            <h2 class="week-bar-card__title">Planned Week</h2>
+            <p class="week-bar-card__sub">168 hours total</p>
+          </div>
+
+          <div class="week-bar-card__stats">
+            <span id="plan-allocated-label" class="week-bar-stat">0h allocated</span>
+            <span id="plan-unallocated-label" class="week-bar-stat week-bar-stat--dim">168h unallocated</span>
+          </div>
+
+        </div>
+
+        <div class="time-budget__bar" id="plan-bar" aria-label="Planned week allocation"></div>
+
+        <div class="time-budget__legend" id="plan-legend"></div>
+
+      </section>
+
+
+      <!-- ---- This Week (real data) ---- -->
+      <section class="week-bar-card">
+
+        <div class="week-bar-card__head">
+
+          <div>
+            <h2 class="week-bar-card__title">This Week</h2>
+            <p class="week-bar-card__sub">Live from your timer</p>
+          </div>
+
+          <div class="week-bar-card__stats">
+            <span id="active-logged-label" class="week-bar-stat">0h logged</span>
+            <span id="active-unlogged-label" class="week-bar-stat week-bar-stat--dim">168h unlogged</span>
+          </div>
+
+        </div>
+
+        <div class="time-budget__bar" id="active-bar" aria-label="This week actual time"></div>
+
+        <div class="time-budget__legend" id="active-legend"></div>
+
+        <label class="week-bar-checkbox">
+          <input type="checkbox" id="include-lifestyle-checkbox" />
+          <span>Include lifestyle blocks</span>
+        </label>
+
+
+      </section>
+
+    </div>
+
+
+    <!-- =========================
+         TIME ALLOCATION
+         ========================= -->
+
+    <section class="allocation-section">
+
+      <div class="section-heading">
+        <div>
+          <h2>Time Allocation</h2>
+          <p>Set how much time you want to give each project.</p>
+        </div>
+      </div>
+
+      <div class="allocation-list" id="allocation-list"></div>
+
+    </section>
+
+
+    <!-- =========================
+         LIFESTYLE BLOCKS
+         ========================= -->
+
+    <section class="allocation-section">
+
+      <div class="section-heading">
+        <div>
+          <h2>Lifestyle Blocks</h2>
+          <p>Account for sleep, meals, commute, and anything else that fills your week.</p>
+        </div>
+        <button class="btn btn--ghost" id="extra-add-btn" type="button">+ Add block</button>
+      </div>
+
+      <div class="allocation-list" id="extras-list"></div>
+
+    </section>
+
+  </main>
+
+
+  <!-- =========================
+       ADD BLOCK DIALOG
+       ========================= -->
+
+  <div class="extra-dialog-backdrop" id="extra-dialog" hidden>
+
+    <div class="extra-dialog">
+
+      <h3 class="extra-dialog__title">New lifestyle block</h3>
+
+      <p class="extra-dialog__hint">Name it anything — Sleep, Meals, Commute, Gym…</p>
+
+      <input
+        class="extra-dialog__input"
+        id="extra-dialog-name"
+        type="text"
+        placeholder="e.g. Sleep"
+        maxlength="40"
+      />
+
+      <div class="extra-dialog__actions">
+        <button class="btn btn--ghost" id="extra-dialog-cancel" type="button">Cancel</button>
+        <button class="btn btn--primary" id="extra-dialog-save" type="button">Add</button>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =========================
+       SCRIPTS
+       ========================= -->
+
+  <script src="plan.js"></script>
+
+</body>
+
+</html>

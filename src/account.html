@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>Account — Quest Opus</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="settings-page">
+
+    <header class="settings-header">
+      <a class="settings-back" href="settings.html" aria-label="Back">
+        ←
+      </a>
+
+      <h1>Account</h1>
+    </header>
+
+    <section class="account-card">
+
+      <div class="account-row">
+        <span class="account-label">Username</span>
+        <span class="account-value" id="account-username">Loading...</span>
+      </div>
+
+      <div class="account-row">
+        <span class="account-label">Email</span>
+        <span class="account-value" id="account-email">Loading...</span>
+      </div>
+
+      <div class="account-row">
+        <span class="account-label">Member since</span>
+        <span class="account-value" id="account-created">Loading...</span>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script type="module" src="account.js"></script>
+</body>
+</html>

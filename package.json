@@ -1,0 +1,54 @@
+
+{
+  "name": "quest-opus-desktop",
+  "version": "1.0.4D",
+  "description": "Quest Opus – desktop time tracking and project management application",
+  "main": "main.js",
+  "author": {
+    "name": "Quest, inc."
+  },
+  "scripts": {
+    "start": "electron .",
+    "postinstall": "node scripts/vendor-chart.js",
+    "dist": "electron-builder --win nsis"
+  },
+  "license": "MIT",
+  "build": {
+    "appId": "inc.quest.quest-opus-project-manager",
+    "productName": "Quest Opus - Desktop Version 1.0.4D",
+    "copyright": "Copyright © 2026 Quest, inc.",
+    "directories": {
+      "output": "dist"
+    },
+    "publish": {
+      "provider": "generic",
+      "url": ""
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "public/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "mac": {
+      "icon": "public/icon.ico",
+      "category": "public.app-category.productivity"
+    },
+    "linux": {
+      "icon": "public/icon.ico",
+      "category": "Utility"
+    }
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.116.0",
+    "chart.js": "^4.4.1"
+  },
+  "devDependencies": {
+    "electron": "^30.0.0",
+    "electron-builder": "^26.15.3"
+  }
+}

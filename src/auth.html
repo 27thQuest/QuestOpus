@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+  <title>Quest Opus</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="auth-page">
+
+    <section class="auth-card">
+      <h1 class="auth-logo">Quest Opus</h1>
+
+      <h2 class="auth-title" id="auth-title">
+        Log in
+      </h2>
+
+      <form id="auth-form">
+
+        <div class="auth-field" id="username-field" style="display: none;">
+
+          <label class="auth-field__label" for="auth-username">
+            Username
+          </label>
+
+          <input class="auth-field__input" id="auth-username" type="text" placeholder="Username"
+            autocomplete="username">
+        </div>
+
+        <div class="auth-field">
+          <label for="auth-email">
+            Email
+          </label>
+
+          <input id="auth-email" type="email" autocomplete="email" placeholder="Email" required />
+        </div>
+
+        <div class="auth-field">
+          <label for="auth-password">
+            Password
+          </label>
+
+          <input id="auth-password" type="password" autocomplete="current-password" placeholder="Password" required />
+        </div>
+
+        <button class="btn btn--primary auth-submit" id="auth-submit" type="submit">
+          Log in
+        </button>
+
+      </form>
+
+      <p class="auth-message" id="auth-message"></p>
+
+      <div class="auth-switch-row">
+        <span id="auth-switch-text">
+          Don't have an account?
+        </span>
+
+        <button type="button" id="auth-switch" class="auth-switch">
+          Sign up
+        </button>
+      </div>
+
+      <div class="verification-panel" id="verification-panel" style="display: none;">
+
+        <h2 class="auth-title">
+          Verify your email
+        </h2>
+
+        <p class="verification-text">
+          We sent a 6-digit verification code to
+          <strong id="verification-email"></strong>
+        </p>
+
+        <div class="auth-field">
+
+          <label class="auth-field__label" for="verification-code">
+            Verification code
+          </label>
+
+          <input class="auth-field__input verification-code" id="verification-code" type="text" inputmode="numeric"
+            maxlength="6" autocomplete="one-time-code" placeholder="000000">
+
+        </div>
+
+        <button type="button" class="auth-submit" id="verify-button">
+          Verify email
+        </button>
+
+        <p class="auth-message" id="verification-message">
+        </p>
+
+        <button type="button" class="auth-switch" id="resend-code">
+          Resend code
+        </button>
+
+        <button type="button" class="auth-switch" id="back-to-auth">
+          Back
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
+  <script type="module" src="auth.js"></script>
+</body>
+
+</html>

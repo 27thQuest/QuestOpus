@@ -1,0 +1,3377 @@
+:root {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --crimson: #822433;
+  --crimson-lift: #9c2c3e;
+  --crimson-soft: #c9737f;
+  --text: #e0e0e0;
+  --text-dim: #8d8d8d;
+  --line: #2a2a2a;
+
+  --sans: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --step-0: 0.9375rem;
+  --step-1: 1.125rem;
+  --step-2: 1.5rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: var(--step-0);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--crimson-soft);
+  outline-offset: 3px;
+}
+
+/* ------------------------------- nav ------------------------------- */
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem 1.75rem;
+  border-bottom: 1px solid var(--line);
+  -webkit-app-region: drag;
+  padding-left: max(1.75rem, env(titlebar-area-x, 1.75rem));
+}
+
+.nav__mark {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+.nav__links {
+  display: flex;
+  gap: 0.35rem;
+  -webkit-app-region: no-drag;
+}
+
+.nav__link {
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav__link:hover {
+  color: var(--text);
+}
+
+.nav__link.is-current {
+  color: var(--text);
+  background: var(--surface);
+}
+
+/* ------------------------------- layout ------------------------------- */
+
+.page {
+  flex: 1;
+  width: min(1040px, 100%);
+  margin: 0 auto;
+  padding: 2.5rem 1.75rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ------------------------------- clock ------------------------------- */
+
+.clock {
+  text-align: center;
+}
+
+.clock__subject {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: var(--step-1);
+}
+
+.clock__subject.is-live {
+  color: var(--text);
+}
+
+.clock__time {
+  margin: 0.25rem 0 1.75rem;
+  font-size: clamp(4.5rem, 17vw, 10.5rem);
+  font-weight: 200;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+  transition: color 0.25s ease;
+}
+
+.clock__time.is-running {
+  color: var(--text);
+}
+
+.clock__time.is-paused {
+  color: var(--text);
+}
+
+.controls {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+/* ------------------------------- buttons ------------------------------- */
+
+.btn {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.7rem 1.6rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  border-color: #3a3a3a;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--crimson);
+  border-color: var(--crimson);
+  min-width: 9rem;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--crimson-lift);
+  border-color: var(--crimson-lift);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--text-dim);
+  padding: 0.45rem 1rem;
+}
+
+.btn--ghost:hover {
+  color: var(--text);
+}
+
+/* ------------------------------- subjects ------------------------------- */
+
+.subjects__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.25rem;
+}
+
+.subjects__title {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.75rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.card:hover {
+  border-color: var(--crimson);
+}
+
+.card--rest {
+  opacity: 0.6;
+  border-style: dashed;
+
+  color: var(--crimson);
+}
+
+.card--rest.is-active {
+  opacity: 1;
+  border-style: solid;
+  color: var(--crimson);
+}
+
+.card.is-active {
+  background: var(--crimson);
+  border-color: var(--crimson);
+}
+
+.card.is-active .card__time {
+  color: rgba(224, 224, 224, 0.85);
+}
+
+.card__name {
+  font-size: var(--step-0);
+}
+
+.card__time {
+  font-variant-numeric: tabular-nums;
+  color: var(--text-dim);
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.card__remove {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.45rem;
+  background: none;
+  border: 0;
+  color: transparent;
+  cursor: pointer;
+  padding: 0.15rem 0.3rem;
+  line-height: 1;
+  border-radius: 4px;
+}
+
+.card:hover .card__remove,
+.card__remove:focus-visible {
+  color: var(--text-dim);
+}
+
+.card__remove:hover {
+  color: var(--text);
+}
+
+.empty {
+  color: var(--text-dim);
+  margin: 1rem 0 0;
+}
+
+/* ------------------------------- analytics ------------------------------- */
+
+.panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+
+.panel__title {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+
+.panel__key {
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+}
+
+.panel__note {
+  margin: 0;
+  color: var(--text-dim);
+  font-size: 0.8125rem;
+}
+
+.chart-wrap {
+  position: relative;
+  height: min(58vh, 420px);
+}
+
+.totals {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 0.75rem;
+}
+
+.total {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left-width: 3px;
+  border-radius: 8px;
+  padding: 1rem 1.1rem;
+}
+
+.total__name {
+  margin: 0 0 0.35rem;
+  font-size: var(--step-0);
+}
+
+.total__value {
+  margin: 0;
+  font-size: var(--step-2);
+  font-variant-numeric: tabular-nums;
+}
+
+.total__delta {
+  margin: 0.15rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+/* ------------------------------- dialog + toast ------------------------------- */
+
+.dialog {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1.5rem;
+  width: min(380px, 90vw);
+}
+
+.dialog::backdrop {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.dialog__title {
+  margin: 0 0 1rem;
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+
+.dialog__input {
+  width: 100%;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+}
+
+.dialog__input:focus {
+  outline: none;
+  border-color: var(--crimson);
+}
+
+.dialog__error {
+  margin: 0.6rem 0 0;
+  font-size: 0.8125rem;
+  color: var(--crimson-soft);
+}
+
+.dialog__label {
+  display: block;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+  margin-bottom: 0.4rem;
+}
+
+.color-swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.swatch {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: transform 0.1s ease, border-color 0.1s ease;
+}
+
+.swatch:hover {
+  transform: scale(1.15);
+}
+
+.swatch.is-selected {
+  border-color: var(--text);
+  transform: scale(1.15);
+}
+
+.dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+  margin-top: 1.25rem;
+}
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 1.75rem;
+  transform: translateX(-50%);
+  background: var(--surface);
+  border: 1px solid var(--crimson);
+  border-radius: 6px;
+  padding: 0.7rem 1.1rem;
+  font-size: 0.875rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+  }
+}
+
+/* ------------------------------- timer-row split ------------------------------- */
+
+.timer-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+
+/* ------------------------------- todo panel (inline) ------------------------------- */
+
+.todo-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-height: 180px;
+  max-height: 260px;
+}
+
+.todo-panel__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.todo-panel__title {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.todo-panel__link {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-decoration: none;
+}
+
+.todo-panel__link:hover {
+  color: var(--text);
+}
+
+/* ------------------------------- todo shared ------------------------------- */
+
+.todo-add-row {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.todo-add-row--compact {
+  gap: 0;
+}
+
+.todo-add-input {
+  flex: 1;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 0.6rem 0.8rem;
+  font: inherit;
+}
+
+.todo-add-input--compact {
+  font-size: 0.8125rem;
+  padding: 0.45rem 0.65rem;
+  border-radius: 6px;
+}
+
+.todo-add-input:focus {
+  outline: none;
+  border-color: var(--crimson);
+}
+
+.todo-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.todo-list--compact {
+  overflow-y: auto;
+  flex: 1;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 0.4rem;
+  border-radius: 6px;
+}
+
+.todo-item:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.todo-item:hover .todo-del {
+  opacity: 1;
+}
+
+.todo-item--compact {
+  padding: 0.3rem 0.2rem;
+  gap: 0.45rem;
+}
+
+.todo-item--done .todo-text {
+  text-decoration: line-through;
+  color: var(--text-dim);
+}
+
+.todo-check {
+  flex-shrink: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  border: 1.5px solid var(--text-dim);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: var(--text);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.todo-item--done .todo-check {
+  border-color: var(--crimson);
+  background: var(--crimson);
+  color: #fff;
+}
+
+.todo-check:hover {
+  border-color: var(--text);
+}
+
+.todo-text {
+  flex: 1;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  outline: none;
+  min-width: 0;
+  word-break: break-word;
+}
+
+.todo-item--compact .todo-text {
+  font-size: 0.8125rem;
+}
+
+.todo-del {
+  flex-shrink: 0;
+  background: none;
+  border: 0;
+  color: var(--text-dim);
+  cursor: pointer;
+  padding: 0 0.2rem;
+  opacity: 0;
+  font-size: 1rem;
+  line-height: 1;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.todo-del:hover {
+  color: var(--text);
+}
+
+.todo-empty--compact {
+  font-size: 0.8125rem;
+  margin: 0;
+}
+
+/* ------------------------------- todo page ------------------------------- */
+
+.todo-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 640px;
+}
+
+.todo-page__head {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.6rem;
+}
+
+/* ============================================================
+   QUEST OPUS 1.0.3D
+   1.0.3 additions + Desktop compatibility
+   ============================================================ */
+
+/* 1.0.3D uses the old Desktop navigation design.
+   The current 1.0.3 HTML does not have .nav__mark, so create it
+   without changing the HTML structure. */
+
+.nav::before {
+  font-size: 0.8125rem;
+  letter-spacing: 0.04em;
+  color: var(--text-dim);
+}
+
+.nav__link svg {
+  display: none;
+}
+
+/* The mobile header belongs to the mobile design, not Desktop. */
+.mobile-header {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  body {
+    padding: 0;
+  }
+
+  .nav {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+
+    height: auto;
+    min-height: 56px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0.85rem 1.75rem;
+
+    background: transparent;
+    border-top: 0;
+    border-bottom: 1px solid var(--line);
+
+    z-index: 100;
+  }
+
+  .nav__links {
+    display: flex;
+    flex: 0 0 auto;
+    gap: 0.35rem;
+  }
+
+  .nav__link {
+    flex: 0 0 auto;
+
+    display: block;
+
+    color: var(--text-dim);
+    text-decoration: none;
+
+    font-size: var(--step-0);
+    letter-spacing: normal;
+
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+
+    transition: color 0.15s ease, background-color 0.15s ease;
+  }
+
+  .nav__link:hover {
+    color: var(--text);
+  }
+
+  .nav__link.is-current {
+    color: var(--text);
+    background: var(--surface);
+  }
+
+  .nav__link.is-current span {
+    color: inherit;
+  }
+
+  .page {
+    width: min(1040px, 100%);
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 2.5rem 1.75rem 3rem;
+    gap: 3rem;
+    overflow: visible;
+  }
+
+  /* Restore the old Desktop timer composition:
+     Tasks on the left, clock on the right. */
+  .timer-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .clock {
+    text-align: center;
+    display: block;
+    padding: 0;
+  }
+
+  .clock__time {
+    font-size: clamp(4.5rem, 17vw, 10.5rem);
+  }
+
+  .controls {
+    width: auto;
+  }
+
+  .todo-panel {
+    width: 100%;
+    min-height: 180px;
+    max-height: 260px;
+    padding: 1rem;
+
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+
+    overflow: hidden;
+  }
+
+  .todo-list--compact {
+    flex: 1;
+    overflow-y: auto;
+    max-height: none;
+  }
+
+  .grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 0.75rem;
+  }
+
+  .card {
+    border-radius: 8px;
+    padding: 1rem 1.1rem;
+    min-height: 0;
+  }
+
+  .btn {
+    min-height: 0;
+  }
+
+  .btn--primary {
+    min-width: 9rem;
+  }
+
+  .toast {
+    bottom: 1.75rem;
+  }
+}
+
+/* ============================================================
+   1.0.3 PLAN PAGE
+   ============================================================ */
+
+.plan-page {
+  padding-bottom: 3rem;
+}
+
+.page-heading {
+  padding: 0;
+}
+
+.page-heading h1 {
+  margin: 0;
+  font-size: var(--step-2);
+  font-weight: 500;
+  letter-spacing: normal;
+}
+
+.page-heading p {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: var(--text-dim);
+}
+
+.time-budget {
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+}
+
+.time-budget__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.time-budget__head h2 {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+
+.time-budget__head p {
+  margin: 4px 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.time-budget__summary {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.time-budget__summary strong {
+  display: block;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.time-budget__summary span {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.time-budget__bar {
+  display: flex;
+  width: 100%;
+  height: 42px;
+  margin-top: 22px;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+}
+
+.time-budget__segment {
+  min-width: 2px;
+  height: 100%;
+  transition: width 0.25s ease;
+}
+
+.time-budget__segment--unallocated {
+  background: var(--line) !important;
+}
+
+.time-budget__legend {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px 14px;
+  margin-top: 16px;
+}
+
+.time-budget__legend-item {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 7px;
+  font-size: 0.8125rem;
+}
+
+.time-budget__legend-dot {
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+}
+
+.time-budget__legend-dot--unallocated {
+  background: var(--line) !important;
+}
+
+.time-budget__totals {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.time-budget__totals div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.time-budget__totals span {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.time-budget__totals strong {
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.allocation-section {
+  margin: 0;
+}
+
+.section-heading {
+  margin-bottom: 12px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 500;
+}
+
+.section-heading p {
+  margin: 5px 0 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.allocation-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+
+/* These names match the current 1.0.3 plan.js. */
+.allocation-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 60px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+  gap: 12px;
+}
+
+.allocation-info {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 0.6rem;
+}
+
+.allocation-color {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
+  border-radius: 50%;
+}
+
+.allocation-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--step-0);
+}
+
+.allocation-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.allocation-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+
+  color: var(--text);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.allocation-btn:hover {
+  border-color: #3a3a3a;
+}
+
+.allocation-value {
+  min-width: 42px;
+  text-align: center;
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.allocation-add {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 14px;
+  border: 1px dashed var(--line);
+  border-radius: 6px;
+  background: transparent;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+@media (min-width: 900px) {
+  .page-heading h1 {
+    font-size: var(--step-2);
+  }
+
+  .time-budget {
+    padding: 1.5rem;
+  }
+
+  .time-budget__legend {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+
+
+Desktop Todo input row .todo-add-row--compact {
+  display: flex;
+  width: 100%;
+  gap: 0.4rem;
+  align-items: stretch;
+}
+
+.todo-add-row--compact .todo-add-input--compact {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 0;
+}
+
+
+
+@media (min-width: 900px) {
+  .todo-panel {
+    width: 100%;
+    height: fit-content;
+    min-height: 0;
+    max-height: none;
+    box-sizing: border-box;
+  }
+}
+
+
+.controls .btn {
+  width: 100%;
+}
+
+
+.controls .btn--rest {
+  background: var(--crimson);
+  border-color: var(--crimson);
+  color: #fff;
+}
+
+
+/* ============================================================
+   QUEST OPUS — AUTH
+   ============================================================ */
+
+:root {
+  --bg: #121212;
+  --surface: #1e1e1e;
+  --surface-hover: #232323;
+  --border: #303030;
+
+  --text: #eeeeee;
+  --muted: #8f8f8f;
+
+  --crimson: #822433;
+  --crimson-hover: #962a3d;
+}
+
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+
+  -webkit-font-smoothing: antialiased;
+}
+
+
+/* ============================================================
+   PAGE
+   ============================================================ */
+
+.auth-page {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 32px;
+
+  background:
+    radial-gradient(circle at 50% 45%,
+      rgba(130, 36, 51, 0.045),
+      transparent 45%);
+}
+
+
+/* ============================================================
+   CARD
+   ============================================================ */
+
+.auth-card {
+  width: 100%;
+  max-width: 380px;
+
+  padding: 34px 36px 30px;
+
+  background: var(--surface);
+
+  border: 1px solid var(--border);
+  border-radius: 14px;
+
+  box-shadow:
+    0 18px 45px rgba(0, 0, 0, 0.28);
+}
+
+
+/* ============================================================
+   BRAND
+   ============================================================ */
+
+.auth-brand {
+  margin-bottom: 28px;
+}
+
+.auth-brand__title {
+  margin: 0;
+
+  font-size: 22px;
+  line-height: 1.2;
+
+  font-weight: 600;
+
+  letter-spacing: -0.25px;
+}
+
+.auth-brand__subtitle {
+  margin: 7px 0 0;
+
+  color: var(--muted);
+
+  font-size: 13px;
+}
+
+
+/* ============================================================
+   TITLE
+   ============================================================ */
+
+.auth-title {
+  margin: 0 0 22px;
+
+  font-size: 20px;
+  line-height: 1.2;
+
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   FORM
+   ============================================================ */
+
+.auth-form {
+  display: flex;
+  flex-direction: column;
+
+  gap: 15px;
+}
+
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+
+.auth-field__label {
+  color: #cfcfcf;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+
+/* ============================================================
+   INPUTS
+   ============================================================ */
+
+.auth-field__input {
+  display: block;
+
+  width: 100%;
+  height: 42px;
+
+  padding: 0 12px;
+
+  margin: 0;
+
+  border: 1px solid #333;
+  border-radius: 7px;
+
+  outline: none;
+
+  background-color: #151515 !important;
+  color: #eeeeee !important;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  box-shadow: none;
+
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.auth-field__input::placeholder {
+  color: #666;
+  opacity: 1;
+}
+
+.auth-field__input:hover {
+  background-color: #171717 !important;
+  border-color: #444;
+}
+
+.auth-field__input:focus {
+  background-color: #171717 !important;
+
+  border-color: var(--crimson);
+
+  box-shadow:
+    0 0 0 2px rgba(130, 36, 51, 0.18);
+}
+
+
+/* ============================================================
+   LOGIN BUTTON
+   ============================================================ */
+
+.auth-submit {
+  display: block;
+
+  width: 100%;
+  height: 42px;
+
+  margin: 4px 0 0;
+  padding: 0;
+
+  border: 0;
+  border-radius: 7px;
+
+  outline: none;
+
+  background: var(--crimson) !important;
+  color: #ffffff !important;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+
+  transition:
+    background-color 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.auth-submit:hover {
+  background: #962a3d !important;
+}
+
+.auth-submit:active {
+  opacity: 0.85;
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+
+/* ============================================================
+   SIGN UP
+   ============================================================ */
+
+.auth-switch-row {
+  margin-top: 23px;
+  padding-top: 19px;
+
+  border-top: 1px solid #2a2a2a;
+
+  text-align: center;
+
+  color: #858585;
+
+  font-size: 12px;
+}
+
+
+.auth-switch {
+  display: inline;
+
+  margin: 0 0 0 5px;
+  padding: 0;
+
+  border: 0;
+  outline: none;
+
+  background: transparent !important;
+  color: #c45a6c !important;
+
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 600;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  cursor: pointer;
+}
+
+.auth-switch:hover {
+  background: transparent !important;
+  color: #e07182 !important;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   SUBMIT
+   ============================================================ */
+
+.auth-submit {
+  width: 100%;
+  height: 42px;
+
+  margin-top: 4px;
+
+  border: 0;
+  border-radius: 7px;
+
+  background: var(--crimson);
+  color: #fff;
+
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    background 0.15s ease,
+    opacity 0.15s ease;
+}
+
+.auth-submit:hover {
+  background: var(--crimson-hover);
+}
+
+.auth-submit:active {
+  opacity: 0.85;
+}
+
+.auth-submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+
+/* ============================================================
+   MESSAGE
+   ============================================================ */
+
+.auth-message {
+  min-height: 16px;
+
+  margin: 2px 0 0;
+
+  color: var(--muted);
+
+  text-align: center;
+
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.auth-message--error {
+  color: #d76b7d;
+}
+
+
+/* ============================================================
+   SWITCH
+   ============================================================ */
+
+.auth-switch-row {
+  margin-top: 23px;
+  padding-top: 19px;
+
+  border-top: 1px solid #2a2a2a;
+
+  text-align: center;
+
+  color: var(--muted);
+
+  font-size: 12px;
+}
+
+
+.auth-switch {
+  margin-left: 4px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: none;
+
+  color: #c45a6c;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+}
+
+.auth-switch:hover {
+  color: #dc7082;
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.auth-footer {
+  margin-top: 20px;
+
+  text-align: center;
+
+  color: #555;
+
+  font-size: 10px;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+
+@media (max-width: 600px) {
+
+  .auth-page {
+    padding: 20px;
+  }
+
+  .auth-card {
+    max-width: 380px;
+
+    padding: 30px 24px 26px;
+  }
+}
+
+/* ============================================================
+   AUTH FINAL OVERRIDES
+   ============================================================ */
+
+.auth-card input,
+.auth-card input[type="text"],
+.auth-card input[type="email"],
+.auth-card input[type="password"] {
+  box-sizing: border-box !important;
+
+  width: 100% !important;
+  height: 42px !important;
+
+  margin: 0 !important;
+  padding: 0 12px !important;
+
+  background: #151515 !important;
+  background-color: #151515 !important;
+
+  color: #eeeeee !important;
+
+  border: 1px solid #333333 !important;
+  border-radius: 7px !important;
+
+  outline: none !important;
+
+  font-family: inherit !important;
+  font-size: 13px !important;
+
+  box-shadow: none !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+}
+
+.auth-card input::placeholder {
+  color: #666666 !important;
+  opacity: 1 !important;
+}
+
+
+/* Focus */
+
+.auth-card input:focus {
+  background: #171717 !important;
+  background-color: #171717 !important;
+
+  border-color: #822433 !important;
+
+  box-shadow:
+    0 0 0 2px rgba(130, 36, 51, 0.18) !important;
+}
+
+
+/* Login button */
+
+.auth-card button#auth-submit {
+  box-sizing: border-box !important;
+
+  width: 100% !important;
+  height: 42px !important;
+
+  margin: 4px 0 0 !important;
+  padding: 0 !important;
+
+  background: #822433 !important;
+  color: #ffffff !important;
+
+  border: none !important;
+  border-radius: 7px !important;
+
+  outline: none !important;
+
+  font-family: inherit !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  cursor: pointer !important;
+}
+
+.auth-card button#auth-submit:hover {
+  background: #962a3d !important;
+}
+
+
+/* Sign-up button */
+
+.auth-card button#auth-switch {
+  display: inline !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  margin: 0 0 0 5px !important;
+  padding: 0 !important;
+
+  background: transparent !important;
+  background-color: transparent !important;
+
+  color: #c45a6c !important;
+
+  border: none !important;
+  border-radius: 0 !important;
+
+  outline: none !important;
+  box-shadow: none !important;
+
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: 600 !important;
+
+  appearance: none !important;
+  -webkit-appearance: none !important;
+
+  cursor: pointer !important;
+}
+
+.auth-card button#auth-switch:hover {
+  background: transparent !important;
+  color: #e07182 !important;
+
+  text-decoration: underline !important;
+}
+
+.color-wheel-wrapper {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  border: 2px solid #444;
+  cursor: pointer;
+  background: conic-gradient(red, yellow, lime, cyan, blue, magenta, red);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.color-wheel {
+  opacity: 0;
+  position: absolute;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.color-wheel::-webkit-color-swatch-wrapper {
+  display: none;
+}
+
+.color-wheel::-webkit-color-swatch {
+  display: none;
+}
+
+.app-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.app-brand img {
+  width: 32px;
+  height: 32px;
+  display: block;
+  object-fit: contain;
+}
+
+.nav__mark {
+  margin: 0;
+}
+
+/*
+CALENDAR
+*/
+/* ================================================================
+   CALENDAR PAGE
+   Add these rules to the bottom of styles.css
+   ================================================================ */
+
+/* ------------------------------- header row ------------------------------- */
+
+.cal-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1rem;
+}
+
+.cal-header__left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cal-header__title {
+  margin: 0;
+  font-size: var(--step-2);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.cal-header__range {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.cal-header__nav {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
+.cal-nav-btn {
+  padding: 0.35rem 0.85rem;
+  min-width: unset;
+}
+
+/* ------------------------------- grid section ------------------------------- */
+
+.cal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.cal-grid-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.cal-grid {
+  display: grid;
+  /* 1 label col + 7 day cols; JS sets --cal-cols via style */
+  grid-template-columns: minmax(120px, 160px) repeat(7, minmax(80px, 1fr));
+  gap: 3px;
+  min-width: 640px;
+}
+
+/* ------------------------------- cells ------------------------------- */
+
+.cal-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  padding: 0.4rem 0.5rem;
+  font-size: 0.8125rem;
+}
+
+/* Corner (top-left blank) */
+.cal-cell--corner {
+  background: transparent;
+  border-color: transparent;
+}
+
+/* Day header cells */
+.cal-cell--day-header {
+  background: var(--surface);
+  border-color: var(--line);
+  flex-direction: column;
+  gap: 0.15rem;
+  text-align: center;
+}
+
+.cal-cell--day-header.cal-cell--today {
+  border-color: var(--crimson);
+  background: var(--crimson)22;
+}
+
+.cal-day-label {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+}
+
+.cal-cell--today .cal-day-label {
+  color: var(--crimson-soft);
+  font-weight: 600;
+}
+
+/* Project label cells */
+.cal-cell--label {
+  justify-content: flex-start;
+  gap: 0.55rem;
+  background: transparent;
+  border-color: transparent;
+  padding-left: 0;
+}
+
+.cal-dot {
+  flex-shrink: 0;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+}
+
+.cal-label-text {
+  color: var(--text);
+  font-size: 0.875rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Data cells (subject × day) */
+.cal-cell--data {
+  background: var(--surface);
+  border-color: var(--line);
+  cursor: default;
+  transition: filter 0.1s ease;
+  min-height: 52px;
+}
+
+.cal-cell--data:hover {
+  filter: brightness(1.2);
+}
+
+.cal-cell--data.cal-cell--today {
+  outline: 1px solid var(--crimson)55;
+  outline-offset: -1px;
+}
+
+.cal-cell--data.cal-cell--future {
+  opacity: 0.35;
+}
+
+.cal-cell-time {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  font-weight: 500;
+}
+
+/* ------------------------------- daily totals ------------------------------- */
+
+.cal-totals-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.cal-totals-title {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 500;
+  color: var(--text-dim);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.6rem;
+}
+
+.cal-totals-row {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.5rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  min-width: 0;
+}
+
+.cal-total-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.75rem 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 72px;
+}
+
+.cal-total-card--today {
+  border-color: var(--crimson);
+}
+
+.cal-total-card--future {
+  opacity: 0.4;
+}
+
+.cal-total-card__day {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.cal-total-card--today .cal-total-card__day {
+  color: var(--crimson-soft);
+}
+
+.cal-total-card__time {
+  font-size: var(--step-1);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--text);
+}
+
+/* ------------------------------- responsive ------------------------------- */
+
+@media (max-width: 768px) {
+  .cal-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+  }
+
+  .cal-grid {
+    grid-template-columns: minmax(100px, 130px) repeat(7, minmax(64px, 1fr));
+    min-width: 560px;
+  }
+
+  .cal-totals-row {
+    min-width: 480px;
+  }
+}
+
+/* ------------------------------- view toggle ------------------------------- */
+
+.cal-view-toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  overflow: hidden;
+  margin-right: 0.35rem;
+}
+
+.cal-view-toggle .cal-view-btn {
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-dim);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8125rem;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+.cal-view-toggle .cal-view-btn:last-child {
+  border-right: none;
+}
+
+.cal-view-toggle .cal-view-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.cal-view-toggle .cal-view-btn.is-active {
+  background: var(--crimson);
+  color: #fff;
+}
+
+/* ------------------------------- monthly grid ------------------------------- */
+
+/* Monthly view: JS sets --cal-cols to 32 (label + 31 days).
+   Override the fixed 7-col template so columns size by count. */
+.cal-grid[style*="--cal-cols"] {
+  grid-template-columns:
+    minmax(120px, 160px) repeat(calc(var(--cal-cols) - 1), minmax(48px, 1fr));
+}
+
+/* Monthly day headers are just numbers — no need for a tall cell */
+.cal-cell--day-header {
+  min-height: 36px;
+}
+
+/* Monthly totals row: let it span however many days there are */
+.cal-totals-row {
+  grid-template-columns: repeat(auto-fill, minmax(64px, 1fr));
+}
+
+@media (max-width: 768px) {
+  .cal-view-toggle {
+    order: -1;
+    /* put toggle above the arrow buttons on mobile */
+  }
+
+  /* Monthly: tighter columns on small screens */
+  .cal-grid[style*="--cal-cols"] {
+    grid-template-columns:
+      minmax(90px, 110px) repeat(calc(var(--cal-cols) - 1), minmax(40px, 1fr));
+  }
+}
+
+/* ------------------------------- view toggle ------------------------------- */
+
+.cal-view-toggle {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  overflow: hidden;
+  margin-right: 0.35rem;
+}
+
+.cal-view-toggle .cal-view-btn {
+  border-radius: 0;
+  border: none;
+  border-right: 1px solid var(--line);
+  background: transparent;
+  color: var(--text-dim);
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8125rem;
+  transition: background 0.1s ease, color 0.1s ease;
+}
+
+.cal-view-toggle .cal-view-btn:last-child {
+  border-right: none;
+}
+
+.cal-view-toggle .cal-view-btn:hover {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.cal-view-toggle .cal-view-btn.is-active {
+  background: var(--crimson);
+  color: #fff;
+}
+
+/* ------------------------------- monthly calendar grid ------------------------------- */
+
+.cal-grid--monthly {
+  /* Override the weekly fixed-col template */
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  min-width: 0;
+  /* no horizontal scroll */
+  width: 100%;
+}
+
+/* Day-of-week header */
+.cal-mcell--dow {
+  text-align: center;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 0.4rem 0;
+}
+
+/* Generic month cell — base styles; see end of file for compact overrides */
+.cal-mcell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  overflow: hidden;
+  transition: filter 0.1s ease;
+  cursor: default;
+  box-sizing: border-box;
+}
+
+.cal-mcell:hover {
+  filter: brightness(1.15);
+}
+
+/* Filler cell (padding before month start / after end) */
+.cal-mcell--filler {
+  background: transparent;
+  border-color: transparent;
+  pointer-events: none;
+}
+
+/* Today highlight */
+.cal-mcell--today {
+  outline: 2px solid var(--crimson);
+  outline-offset: -2px;
+}
+
+/* Future dates */
+.cal-mcell--future {
+  opacity: 0.4;
+}
+
+/* Date number */
+.cal-mcell__num {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1;
+}
+
+.cal-mcell--today .cal-mcell__num {
+  color: var(--crimson-soft);
+}
+
+/* Time label */
+.cal-mcell__time {
+  font-size: 0.7rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1;
+  align-self: flex-end;
+}
+
+/* ------------------------------- monthly weekly-totals strip ------------------------------- */
+
+.cal-totals-row--monthly {
+  /* Override weekly 7-col grid */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.cal-week-card {
+  flex: 1 1 0;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 0.6rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.cal-week-card--current {
+  border-color: var(--crimson);
+}
+
+.cal-week-card__range {
+  font-size: 0.72rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cal-week-card--current .cal-week-card__range {
+  color: var(--crimson-soft);
+}
+
+.cal-week-card__time {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+}
+
+/* ------------------------------- responsive ------------------------------- */
+
+@media (max-width: 768px) {
+  .cal-view-toggle {
+    order: -1;
+  }
+
+  .cal-mcell {
+    aspect-ratio: 1 / 1;
+    padding: 0.3rem;
+  }
+
+  .cal-mcell__num {
+    font-size: 0.7rem;
+  }
+
+  .cal-mcell__time {
+    font-size: 0.6rem;
+  }
+
+  .cal-week-card {
+    padding: 0.5rem 0.6rem;
+  }
+
+  .cal-week-card__time {
+    font-size: 0.875rem;
+  }
+}
+
+/* ================================================================
+   PLAN PAGE — LIFESTYLE BLOCKS & DIALOG
+   Append to styles.css
+   ================================================================ */
+
+/* ---- Section heading with action button ---- */
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-heading h2 {
+  margin: 0 0 0.2rem;
+}
+
+.section-heading p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+
+/* ---- Delete button variant ---- */
+
+.allocation-btn--delete {
+  margin-left: 0.35rem;
+  color: var(--text-dim);
+  opacity: 0.6;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.allocation-btn--delete:hover {
+  color: var(--crimson);
+  opacity: 1;
+}
+
+/* ---- Empty state ---- */
+
+.extras-empty {
+  margin: 0;
+  padding: 1.25rem 0;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ---- Dialog backdrop ---- */
+
+.extra-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.extra-dialog-backdrop[hidden] {
+  display: none;
+}
+
+/* ---- Dialog box ---- */
+
+.extra-dialog {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  width: min(420px, calc(100vw - 2rem));
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.extra-dialog__title {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+.extra-dialog__hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.extra-dialog__input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9375rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.extra-dialog__input:focus {
+  border-color: var(--crimson);
+}
+
+.extra-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* ================================================================
+   PLAN PAGE — WEEK BARS + LIFESTYLE BLOCKS + DIALOG
+   Append to styles.css
+   ================================================================ */
+
+/* ---- Two-bar layout ---- */
+
+.week-bars {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 720px) {
+  .week-bars {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Bar card ---- */
+
+.week-bar-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.25rem 1.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.week-bar-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.week-bar-card__title {
+  margin: 0 0 0.15rem;
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+.week-bar-card__sub {
+  margin: 0;
+  font-size: 0.78rem;
+  color: var(--text-dim);
+}
+
+.week-bar-card__stats {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.15rem;
+  flex-shrink: 0;
+}
+
+.week-bar-stat {
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  color: var(--text);
+  white-space: nowrap;
+}
+
+.week-bar-stat--dim {
+  font-weight: 400;
+  color: var(--text-dim);
+}
+
+/* ---- Section heading with action button ---- */
+
+.section-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.section-heading h2 {
+  margin: 0 0 0.2rem;
+}
+
+.section-heading p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+}
+
+/* ---- Delete button variant ---- */
+
+.allocation-btn--delete {
+  margin-left: 0.35rem;
+  color: var(--text-dim);
+  opacity: 0.6;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.allocation-btn--delete:hover {
+  color: var(--crimson);
+  opacity: 1;
+}
+
+/* ---- Empty state ---- */
+
+.extras-empty {
+  margin: 0;
+  padding: 1.25rem 0;
+  font-size: 0.875rem;
+  color: var(--text-dim);
+  text-align: center;
+}
+
+/* ---- Dialog backdrop ---- */
+
+.extra-dialog-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 200;
+}
+
+.extra-dialog-backdrop[hidden] {
+  display: none;
+}
+
+.extra-dialog {
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 1.75rem 2rem;
+  width: min(420px, calc(100vw - 2rem));
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+}
+
+.extra-dialog__title {
+  margin: 0;
+  font-size: var(--step-1);
+  font-weight: 600;
+}
+
+.extra-dialog__hint {
+  margin: 0;
+  font-size: 0.8125rem;
+  color: var(--text-dim);
+}
+
+.extra-dialog__input {
+  width: 100%;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9375rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.extra-dialog__input:focus {
+  border-color: var(--crimson);
+}
+
+.extra-dialog__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+/* -------------------------------------------------- */
+/* Include lifestyle checkbox                          */
+/* -------------------------------------------------- */
+
+.week-bar-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-size: 0.85rem;
+  color: var(--text-muted, #888);
+  cursor: pointer;
+  user-select: none;
+}
+
+.week-bar-checkbox input {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--crimson, #822433);
+  cursor: pointer;
+}
+
+.week-bar-checkbox span {
+  line-height: 1;
+}
+
+.week-bar-checkbox:hover {
+  color: var(--text, #fff);
+}
+
+/* ================================================================
+   STREAK FEATURE — badge, banner, calendar flame, drag reorder
+   Append to styles.css
+   ================================================================ */
+
+/* ---- Tasks panel head: room for the streak badge ---- */
+
+.todo-panel__head {
+  align-items: center;
+  flex-wrap: wrap;
+  row-gap: 0.35rem;
+}
+
+/* ---- Streak badge ---- */
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  user-select: none;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+.streak-badge__flame {
+  font-size: 0.9rem;
+  filter: grayscale(1) opacity(0.55);
+  transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.streak-badge.is-active {
+  background: linear-gradient(135deg, #3a1d05, #2a1402);
+  border-color: rgba(255, 140, 26, 0.35);
+  color: #ffb454;
+}
+
+.streak-badge.is-active .streak-badge__flame {
+  filter: none;
+  animation: streak-flame-pulse 1.8s ease-in-out infinite;
+}
+
+.streak-badge.is-at-risk {
+  background: #2a1e05;
+  border-color: rgba(184, 134, 11, 0.55);
+  color: #e0b84c;
+}
+
+.streak-badge.is-at-risk .streak-badge__flame {
+  filter: none;
+  opacity: 0.85;
+  animation: streak-flame-flicker 1.2s ease-in-out infinite;
+}
+
+@keyframes streak-flame-pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.18);
+  }
+}
+
+@keyframes streak-flame-flicker {
+
+  0%,
+  100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.85;
+  }
+
+  50% {
+    transform: scale(1.08) rotate(-4deg);
+    opacity: 1;
+  }
+}
+
+/* ---- Streak-at-risk banner (Tasks panel) ---- */
+
+.streak-banner {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0 0 0.35rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  background: #2a1e05;
+  border: 1px solid rgba(184, 134, 11, 0.35);
+  color: #e0b84c;
+  font-size: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.streak-banner.is-visible {
+  display: flex;
+}
+
+/* ---- Calendar streak flame ---- */
+
+.cal-flame {
+  display: block;
+  text-align: center;
+  line-height: 1;
+  filter: drop-shadow(0 0 3px rgba(255, 140, 0, 0.7));
+}
+
+.cal-flame--header {
+  font-size: 1.1rem;
+  margin: 0.2rem auto 0;
+}
+
+.cal-flame--total {
+  font-size: 0.95rem;
+  margin: 0 auto 0.15rem;
+}
+
+.cal-flame--month {
+  font-size: 1rem;
+  position: relative;
+}
+
+/* ---- Monthly cell: compact size + project name label ---- */
+/* These rules must come LAST to win over all earlier .cal-mcell blocks */
+
+.cal-grid--monthly {
+  gap: 2px;
+}
+
+.cal-mcell {
+  height: 52px !important;
+  min-height: unset !important;
+  max-height: 52px !important;
+  aspect-ratio: unset !important;
+  padding: 2px !important;
+  gap: 0 !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.cal-mcell--filler {
+  height: 52px !important;
+  max-height: 52px !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.cal-mcell--dow {
+  height: auto !important;
+  max-height: unset !important;
+  min-height: unset !important;
+  aspect-ratio: unset !important;
+  font-size: 0.6rem !important;
+  padding: 2px 0 !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.cal-mcell__num {
+  position: absolute;
+  top: 1px;
+  left: 3px;
+  font-size: 0.65rem;
+  opacity: 0.7;
+  font-weight: 600;
+}
+
+.cal-mcell__project {
+  font-size: 0.60rem;
+  font-weight: 600;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  text-align: center;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.cal-mcell__time {
+  font-size: 0.5rem !important;
+  opacity: 0.8;
+  align-self: center !important;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 768px) {
+  .cal-mcell {
+    height: 44px !important;
+    max-height: 44px !important;
+  }
+}
+
+/* ---- Todo: drag handle, dragging state, divider, done-date flair ---- */
+
+.todo-drag-handle {
+  flex-shrink: 0;
+  margin-right: 0.1rem;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+.todo-item[draggable="true"] .todo-drag-handle {
+  cursor: grab;
+  opacity: 0.55;
+}
+
+.todo-item--done .todo-drag-handle {
+  opacity: 0.2;
+  cursor: default;
+}
+
+.todo-item--dragging {
+  opacity: 0.4;
+}
+
+.todo-divider {
+  list-style: none;
+  border-top: 1px solid var(--line);
+  margin: 0.5rem 0;
+  padding: 0;
+}
+
+.todo-done-date {
+  flex-shrink: 0;
+  font-size: 0.7rem;
+  opacity: 0.65;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  color: var(--text-dim);
+}
+
+/* =========================================================
+   GLOBAL SCROLLBAR
+   ========================================================= */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #333333 transparent;
+}
+
+/* Chrome / Edge / Electron */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #444444;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* ============================================================
+   Selected calendar day
+   ============================================================ */
+
+.cal-cell--selected {
+  border: 1px dotted #822433 !important;
+}
+
+/* ============================================================
+   Selected Day
+   ============================================================ */
+
+.cal-day-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.cal-day-header {
+  margin-bottom: 1.25rem;
+}
+
+.cal-day-title {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.cal-day-sub {
+  margin: 0.35rem 0 0;
+  font-size: 0.85rem;
+  color: #888888;
+}
+
+/* ============================================================
+   Diary + Todos row
+   ============================================================ */
+
+.cal-day-content {
+  display: grid;
+  grid-template-columns: 1fr fr;
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+
+.cal-day-content .cal-day-block {
+  margin-top: 0;
+}
+
+/* ============================================================
+   Diary / Todo Blocks
+   ============================================================ */
+
+.cal-day-block {
+  margin-top: 1.25rem;
+  padding: 1rem 1.1rem;
+  background: #1e1e1e;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 8px;
+}
+
+.cal-day-block__title {
+  margin: 0 0 0.75rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #aaaaaa;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+
+/* ============================================================
+   Diary
+   ============================================================ */
+
+.cal-diary {
+  min-height: 70px;
+}
+
+.cal-diary__empty {
+  margin: 0;
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+.cal-diary__text {
+  margin: 0;
+  color: #dddddd;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+
+/* ============================================================
+   Calendar Todos
+   ============================================================ */
+
+.cal-day-todos {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.cal-day-todo {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 32px;
+  padding: 0.4rem 0.5rem;
+  border-radius: 5px;
+  color: #dddddd;
+  font-size: 0.9rem;
+}
+
+.cal-day-todo:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.cal-day-todo__check {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #888888;
+}
+
+.cal-day-todo__text {
+  flex: 1;
+  min-width: 0;
+}
+
+.cal-day-todo--completed {
+  color: #777777;
+}
+
+.cal-day-todo--completed .cal-day-todo__text {
+  text-decoration: line-through;
+}
+
+.cal-day-todo__flame {
+  flex: 0 0 auto;
+  font-size: 0.8rem;
+}
+
+.cal-day-todos__empty {
+  margin: 0;
+  color: #666666;
+  font-size: 0.9rem;
+}
+
+/* ============================================================
+   Diary Editor
+   ============================================================ */
+
+.cal-diary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.cal-diary__input {
+  width: 100%;
+  min-height: 180px;
+  box-sizing: border-box;
+
+  padding: 0.75rem;
+
+  resize: vertical;
+
+  background: transparent;
+  border: none;
+  outline: none;
+
+  color: #dddddd;
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.7;
+
+  scrollbar-width: thin;
+  scrollbar-color: #333333 transparent;
+}
+
+.cal-diary__input::placeholder {
+  color: #555555;
+}
+
+.cal-diary__input:focus {
+  color: #ffffff;
+}
+
+.cal-diary__status {
+  min-height: 1rem;
+  padding: 0 0.75rem;
+
+  font-size: 0.7rem;
+  color: #666666;
+
+  transition: opacity 0.2s ease;
+}
+
+/* ============================================================
+   Selected Day — Diary + Todos
+   ============================================================ */
+
+.cal-day-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 1.25rem;
+    margin-top: 1.25rem;
+}
+
+.cal-day-content .cal-day-block {
+    margin-top: 0;
+}
+
+
+/* Diary */
+
+.cal-diary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.cal-diary__input {
+    width: 100%;
+    min-height: 180px;
+    box-sizing: border-box;
+
+    padding: 0.75rem;
+
+    resize: vertical;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: #dddddd;
+
+    font-family: inherit;
+    font-size: 0.95rem;
+    line-height: 1.7;
+
+    scrollbar-width: thin;
+    scrollbar-color: #333333 transparent;
+}
+
+.cal-diary__input::placeholder {
+    color: #555555;
+}
+
+.cal-diary__input:focus {
+    color: #ffffff;
+}
+
+.cal-diary__status {
+    min-height: 1rem;
+
+    padding: 0 0.75rem;
+
+    font-size: 0.7rem;
+    color: #666666;
+
+    transition: opacity 0.2s ease;
+}
+
+
+/* Mobile */
+
+@media (max-width: 800px) {
+    .cal-day-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Grey out the empty project placeholder */
+#task-dialog-project:has(option[value=""]:checked) {
+    color: #777777;
+}
+
+/* Grey out the empty date placeholder */
+#task-dialog-deadline:not(.has-value)::-webkit-datetime-edit {
+    color: #777777;
+}
+
+/* Normal text after a date is selected */
+#task-dialog-deadline.has-value::-webkit-datetime-edit {
+    color: #eeeeee;
+}
+
+/* Make the calendar icon visible on the dark UI */
+#task-dialog-deadline::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: 0.7;
+    filter: invert(1);
+}
+
+#task-dialog-deadline::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}
+
+/* =========================================================
+   QUEST OPUS — CUSTOM DEADLINE CALENDAR
+   ========================================================= */
+
+.deadline-picker {
+    position: relative;
+    width: 100%;
+}
+
+.deadline-picker__input {
+    cursor: pointer;
+    color: #eeeeee;
+}
+
+.deadline-picker__input::placeholder {
+    color: #777777;
+    opacity: 1;
+}
+
+/* Calendar popup */
+.deadline-calendar {
+    position: absolute;
+    z-index: 9999;
+    top: calc(100% + 6px);
+    left: 0;
+
+    width: 280px;
+    box-sizing: border-box;
+    padding: 12px;
+
+    background: #1e1e1e;
+    color: #eeeeee;
+
+    border: 1px solid #3a3a3a;
+    border-radius: 10px;
+
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.55);
+
+    font-family: inherit;
+    font-size: 12px;
+}
+
+.deadline-calendar[hidden] {
+    display: none !important;
+}
+
+/* Month heading and navigation */
+.deadline-calendar__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.deadline-calendar__month {
+    font-size: 14px;
+    font-weight: 600;
+    color: #f2f2f2;
+}
+
+.deadline-calendar__nav {
+    display: flex;
+    gap: 4px;
+}
+
+.deadline-calendar__nav button {
+    width: 28px;
+    height: 28px;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: transparent;
+    color: #bbbbbb;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.deadline-calendar__nav button:hover {
+    background: #303030;
+    color: #ffffff;
+}
+
+/* Seven equal columns */
+.deadline-calendar__weekdays,
+.deadline-calendar__days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    gap: 3px;
+}
+
+.deadline-calendar__weekdays {
+    margin-bottom: 5px;
+}
+
+.deadline-calendar__weekday {
+    width: 30px;
+    height: 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: #888888;
+    font-size: 11px;
+}
+
+/* Square date buttons */
+.deadline-calendar__day,
+.deadline-calendar__empty {
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+.deadline-calendar__day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0;
+
+    background: transparent;
+    color: #dddddd;
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    cursor: pointer;
+}
+
+.deadline-calendar__day:hover {
+    background: #353535;
+    border-color: #555555;
+}
+
+.deadline-calendar__day.is-today {
+    border-color: #822433;
+    color: #e5a0aa;
+}
+
+.deadline-calendar__day.is-selected {
+    background: #822433;
+    border-color: #a54858;
+    color: #ffffff;
+}
+
+.deadline-calendar__day.is-selected:hover {
+    background: #963344;
+}
+
+/* Footer */
+.deadline-calendar__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-top: 10px;
+    padding-top: 9px;
+
+    border-top: 1px solid #333333;
+}
+
+.deadline-calendar__footer button {
+    padding: 5px 7px;
+
+    background: transparent;
+    color: #c8c8c8;
+
+    border: none;
+    border-radius: 4px;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.deadline-calendar__footer button:hover {
+    background: #303030;
+    color: #ffffff;
+}
+
+.deadline-calendar__footer .is-primary {
+    color: #d78a97;
+}
+
+/* Task deadline badges */
+.todo-deadline {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0.2rem 0.25rem 0 0;
+  padding: 0.12rem 0.42rem;
+  border: 1px solid #66552b;
+  border-radius: 999px;
+  background: #2a2415;
+  color: #e0c477;
+  font-size: 0.68rem;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+/* Due today */
+.todo-deadline.is-due-today {
+  border-color: #a87925;
+  background: #382a12;
+  color: #ffd27a;
+}
+
+/* Overdue */
+.todo-deadline.is-overdue {
+  border-color: #a54858;
+  background: #351b20;
+  color: #f0a0ad;
+}
+
+/* Slightly smaller badges in the compact panel */
+.todo-panel .todo-deadline {
+  font-size: 0.65rem;
+  margin-top: 0.25rem;
+}
