@@ -1,0 +1,23 @@
+{
+  "name": "quest-opus-mobile",
+  "version": "1.0.3",
+  "description": "Quest Opus – mobile/web version powered by Capacitor",
+  "private": true,
+  "scripts": {
+    "copy": "node scripts/copy-src.js",
+    "dev": "node scripts/dev.js",
+    "build": "npm run copy && echo 'Done. Run: npx cap sync'",
+    "cap:ios": "npm run copy && npx cap run ios",
+    "cap:android": "npm run copy && npx cap run android"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.0.0",
+    "serve": "^14.2.3"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
+    "@supabase/supabase-js": "^2.116.0"
+  }
+}

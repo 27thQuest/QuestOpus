@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <title>Analytics — Quest Opus</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- Header -->
+    <div class="mobile-header">
+      <div class="app-title">
+        <div>MAKE EVERY WEEK</div>
+        <div>YOUR MAGNUM OPUS</div>
+      </div>
+      <button class="menu-btn" aria-label="Menu">☰</button>
+    </div>
+
+    <section class="panel">
+      <div class="panel__head">
+        <h2 class="panel__title">Hours per subject</h2>
+        <p class="panel__note" id="week-range"></p>
+        <p class="panel__key">Last week: left &nbsp;|&nbsp; This week: right</p>
+      </div>
+      <div class="chart-wrap"><canvas id="chart"></canvas></div>
+      <p class="empty" id="chart-error" hidden>Chart.js didn't load.</p>
+    </section>
+    <section class="totals" id="totals"></section>
+  </main>
+
+  <nav class="nav">
+    <div class="nav__links">
+
+      <a class="nav__link" href="index.html">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <polyline points="12 7 12 12 15 15" />
+        </svg>
+        <span>Timer</span>
+      </a>
+
+      <a class="nav__link" href="plan.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 4h14v16H5z" />
+          <line x1="8" y1="8" x2="16" y2="8" />
+          <line x1="8" y1="12" x2="16" y2="12" />
+          <line x1="8" y1="16" x2="13" y2="16" />
+        </svg>
+        <span>Plan</span>
+      </a>
+
+      <a class="nav__link is-current" href="analytics.html">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="12" width="4" height="9" />
+          <rect x="10" y="7" width="4" height="14" />
+          <rect x="17" y="3" width="4" height="18" />
+        </svg>
+        <span>Analytics</span>
+      </a>
+
+      <a class="nav__link" href="todo.html">
+        <svg viewBox="0 0 24 24">
+          <line x1="8" y1="6" x2="21" y2="6" />
+          <line x1="8" y1="12" x2="21" y2="12" />
+          <line x1="8" y1="18" x2="21" y2="18" />
+          <polyline points="3 6 4 7 6 5" />
+          <polyline points="3 12 4 13 6 11" />
+          <polyline points="3 18 4 19 6 17" />
+        </svg>
+        <span>Todo</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script src="db.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script src="analytics.js"></script>
+</body>
+
+</html>

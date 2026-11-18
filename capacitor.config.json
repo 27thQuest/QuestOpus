@@ -1,0 +1,13 @@
+{
+  "appId": "inc.quest.opus",
+  "appName": "Quest Opus",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  }
+}

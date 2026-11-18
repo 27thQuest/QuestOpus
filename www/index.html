@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#121212" />
+  <title>Quest Opus Version 1.0.3</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <div class="mobile-header">
+    <div class="app-title">
+      <div>MAKE EVERY WEEK</div>
+      <div>YOUR MAGNUM OPUS</div>
+    </div>
+    <button class="menu-btn" aria-label="Menu">☰</button>
+  </div>
+
+  <main class="page">
+    <section class="clock" aria-live="off">
+      <p class="clock__subject" id="clock-subject">Loading…</p>
+      <p class="clock__time" id="clock-time">00:00:00</p>
+      <div class="controls">
+        <button class="btn btn--primary" id="btn-primary" disabled>Start</button>
+        <button class="btn" id="btn-stop" disabled>Rest</button>
+      </div>
+    </section>
+
+    <section class="subjects">
+      <div class="subjects__head">
+        <h2 class="subjects__title">Today</h2>
+        <button class="btn btn--ghost" id="btn-add" type="button">+ Add</button>
+      </div>
+      <div class="grid" id="subject-grid"></div>
+      <p class="empty" id="empty" hidden>No subjects yet.</p>
+    </section>
+
+    <aside class="todo-panel">
+      <div class="todo-panel__head">
+        <span class="todo-panel__title">Tasks</span>
+        <a class="todo-panel__link" href="todo.html">See all</a>
+      </div>
+
+      <div class="todo-add-row todo-add-row--compact">
+        <input class="todo-add-input todo-add-input--compact" id="panel-todo-input" type="text"
+          placeholder="Add a task…" maxlength="200" autocomplete="off" />
+
+        <button class="btn btn--primary" id="panel-todo-add-btn" type="button">
+          Add
+        </button>
+      </div>
+
+      <ul class="todo-list todo-list--compact" id="panel-todo-list"></ul>
+
+      <p class="empty todo-empty--compact" id="panel-todo-empty">
+        No tasks yet.
+      </p>
+    </aside>
+
+
+  </main>
+
+  <div class="toast" id="toast" role="status" hidden></div>
+
+  <dialog class="dialog" id="rename-dialog">
+    <h3 class="dialog__title">Edit subject</h3>
+    <label class="dialog__label" for="rename-input">Name</label>
+    <input class="dialog__input" id="rename-input" type="text" maxlength="60" autocomplete="off" />
+    <p class="dialog__error" id="rename-error" hidden>That name is already in use.</p>
+    <label class="dialog__label" style="margin-top:1.1rem;display:block">Color</label>
+    <div class="color-swatches" id="color-swatches"></div>
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" id="rename-cancel" type="button">Cancel</button>
+      <button class="btn btn--primary" id="rename-save" type="button">Save</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="add-dialog">
+    <h3 class="dialog__title">New subject</h3>
+    <input class="dialog__input" id="subject-name" type="text" placeholder="Organic Chemistry" maxlength="60"
+      autocomplete="off" />
+    <p class="dialog__error" id="dialog-error" hidden>Name already exists.</p>
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" id="dialog-cancel" type="button">Cancel</button>
+      <button class="btn btn--primary" id="dialog-save" type="button">Add</button>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="task-dialog">
+    <h3 class="dialog__title">New task</h3>
+
+    <label class="dialog__label" for="task-dialog-text">
+      Task
+    </label>
+
+    <input class="dialog__input" id="task-dialog-text" type="text" maxlength="200" autocomplete="off" />
+
+    <label class="dialog__label" for="task-dialog-project" style="margin-top:1.1rem;display:block">
+      Related project
+    </label>
+
+    <select class="dialog__input" id="task-dialog-project">
+      <option value="">None</option>
+    </select>
+
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" id="task-dialog-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="task-dialog-save" type="button">
+        Add
+      </button>
+    </div>
+  </dialog>
+
+
+
+  <nav class="nav">
+    <div class="nav__links">
+
+      <a class="nav__link is-current" href="index.html">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <polyline points="12 7 12 12 15 15" />
+        </svg>
+        <span>Timer</span>
+      </a>
+
+      <a class="nav__link" href="plan.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 4h14v16H5z" />
+          <line x1="8" y1="8" x2="16" y2="8" />
+          <line x1="8" y1="12" x2="16" y2="12" />
+          <line x1="8" y1="16" x2="13" y2="16" />
+        </svg>
+        <span>Plan</span>
+      </a>
+
+      <a class="nav__link" href="analytics.html">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="12" width="4" height="9" />
+          <rect x="10" y="7" width="4" height="14" />
+          <rect x="17" y="3" width="4" height="18" />
+        </svg>
+        <span>Analytics</span>
+      </a>
+
+      <a class="nav__link" href="todo.html">
+        <svg viewBox="0 0 24 24">
+          <line x1="8" y1="6" x2="21" y2="6" />
+          <line x1="8" y1="12" x2="21" y2="12" />
+          <line x1="8" y1="18" x2="21" y2="18" />
+          <polyline points="3 6 4 7 6 5" />
+          <polyline points="3 12 4 13 6 11" />
+          <polyline points="3 18 4 19 6 17" />
+        </svg>
+        <span>Todo</span>
+      </a>
+    </div>
+  </nav>
+
+  <script src="db.js"></script>
+  <script src="renderer.js"></script>
+  <script src="todo.js"></script>
+  <script type="module" src="supabase.js"></script>
+
+</html>

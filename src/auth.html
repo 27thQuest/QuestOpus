@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+  />
+
+  <title>Quest Opus</title>
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="auth-page">
+
+    <section class="auth-card">
+      <h1 class="auth-logo">Quest Opus</h1>
+
+      <h2 class="auth-title" id="auth-title">
+        Log in
+      </h2>
+
+      <form id="auth-form">
+
+        <div class="auth-field" id="auth-username-field">
+          <label for="auth-username">
+            Username
+          </label>
+
+          <input
+            id="auth-username"
+            type="text"
+            maxlength="50"
+            autocomplete="username"
+            placeholder="Username"
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="auth-email">
+            Email
+          </label>
+
+          <input
+            id="auth-email"
+            type="email"
+            autocomplete="email"
+            placeholder="Email"
+            required
+          />
+        </div>
+
+        <div class="auth-field">
+          <label for="auth-password">
+            Password
+          </label>
+
+          <input
+            id="auth-password"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Password"
+            required
+          />
+        </div>
+
+        <button
+          class="btn btn--primary auth-submit"
+          id="auth-submit"
+          type="submit"
+        >
+          Log in
+        </button>
+
+      </form>
+
+      <p class="auth-message" id="auth-message"></p>
+
+      <div class="auth-switch">
+        <span id="auth-switch-text">
+          Don't have an account?
+        </span>
+
+        <button
+          class="auth-switch__button"
+          id="auth-switch"
+          type="button"
+        >
+          Sign up
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+  <script type="module" src="auth.js"></script>
+</body>
+</html>

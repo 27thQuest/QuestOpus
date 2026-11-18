@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#121212" />
+  <title>Todo — Quest Opus</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <main class="page">
+
+    <!-- Header -->
+    <div class="mobile-header">
+      <div class="app-title">
+        <div>MAKE EVERY WEEK</div>
+        <div>YOUR MAGNUM OPUS</div>
+      </div>
+      <button class="menu-btn" aria-label="Menu">☰</button>
+    </div>
+
+
+    <section class="todo-page">
+      <div class="todo-page__head subjects__head">
+        <h2 class="subjects__title">Tasks</h2>
+      </div>
+      <div class="todo-add-row">
+        <input class="todo-add-input" id="todo-input" type="text" placeholder="Add a task…" maxlength="200"
+          autocomplete="off" />
+        <button class="btn btn--primary" id="todo-add-btn" type="button">Add</button>
+      </div>
+      <ul class="todo-list" id="todo-list"></ul>
+      <p class="empty" id="todo-empty">No tasks yet.</p>
+    </section>
+  </main>
+
+  <dialog class="dialog" id="task-dialog">
+    <h3 class="dialog__title">New task</h3>
+
+    <label class="dialog__label" for="task-dialog-text">
+      Task
+    </label>
+
+    <input class="dialog__input" id="task-dialog-text" type="text" maxlength="200" autocomplete="off" />
+
+    <label class="dialog__label" for="task-dialog-project" style="margin-top:1.1rem">
+      Related project
+    </label>
+
+    <select class="dialog__input" id="task-dialog-project">
+      <option value="">None</option>
+    </select>
+
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" id="task-dialog-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="task-dialog-save" type="button">
+        Add
+      </button>
+    </div>
+  </dialog>
+
+  <dialog class="dialog" id="task-dialog">
+    <h3 class="dialog__title">New task</h3>
+
+    <label class="dialog__label" for="task-dialog-text">
+      Task
+    </label>
+
+    <input class="dialog__input" id="task-dialog-text" type="text" maxlength="200" autocomplete="off" />
+
+    <label class="dialog__label" for="task-dialog-project" style="margin-top:1.1rem;display:block">
+      Related project
+    </label>
+
+    <select class="dialog__input" id="task-dialog-project">
+      <option value="">None</option>
+    </select>
+
+    <div class="dialog__actions">
+      <button class="btn btn--ghost" id="task-dialog-cancel" type="button">
+        Cancel
+      </button>
+
+      <button class="btn btn--primary" id="task-dialog-save" type="button">
+        Add
+      </button>
+    </div>
+  </dialog>
+
+  <nav class="nav">
+    <div class="nav__links">
+
+      <a class="nav__link" href="index.html">
+        <svg viewBox="0 0 24 24">
+          <circle cx="12" cy="12" r="9" />
+          <polyline points="12 7 12 12 15 15" />
+        </svg>
+        <span>Timer</span>
+      </a>
+
+      <a class="nav__link" href="plan.html">
+        <svg viewBox="0 0 24 24">
+          <path d="M5 4h14v16H5z" />
+          <line x1="8" y1="8" x2="16" y2="8" />
+          <line x1="8" y1="12" x2="16" y2="12" />
+          <line x1="8" y1="16" x2="13" y2="16" />
+        </svg>
+        <span>Plan</span>
+      </a>
+
+      <a class="nav__link" href="analytics.html">
+        <svg viewBox="0 0 24 24">
+          <rect x="3" y="12" width="4" height="9" />
+          <rect x="10" y="7" width="4" height="14" />
+          <rect x="17" y="3" width="4" height="18" />
+        </svg>
+        <span>Analytics</span>
+      </a>
+
+      <a class="nav__link is-current" href="todo.html">
+        <svg viewBox="0 0 24 24">
+          <line x1="8" y1="6" x2="21" y2="6" />
+          <line x1="8" y1="12" x2="21" y2="12" />
+          <line x1="8" y1="18" x2="21" y2="18" />
+          <polyline points="3 6 4 7 6 5" />
+          <polyline points="3 12 4 13 6 11" />
+          <polyline points="3 18 4 19 6 17" />
+        </svg>
+        <span>Todo</span>
+      </a>
+
+    </div>
+  </nav>
+
+  <script src="db.js"></script>
+  <script src="todo.js"></script>
+
+</body>
+
+</html>
